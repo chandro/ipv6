@@ -1,0 +1,40 @@
+<?php
+// Obtener la dirección IPv4 del cliente
+$ipv4 = $_SERVER['REMOTE_ADDR'];
+
+// Obtener la dirección IPv6 del cliente (si está disponible)
+$ipv6 = '';
+if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+    $ipv6 = $_SERVER['HTTP_X_FORWARDED_FOR'];
+} elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
+    $ipv6 = $_SERVER['HTTP_CLIENT_IP'];
+}
+
+// Mensaje predefinido para WhatsApp
+$mensaje = "Mi dirección IPv4 es: $ipv4 y mi dirección IPv6 es: $ipv6";
+$mensajeCodificado = urlencode($mensaje);
+
+// Número de WhatsApp
+$numeroWhatsApp = "+528441106739";
+
+// Enlace de WhatsApp
+$enlaceWhatsApp = "https://wa.me/$numeroWhatsApp?text=$mensajeCodificado";
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Dirección IP</title>
+</head>
+<body>
+    <h1>Mi Dirección IP</h1>
+    <p>Tu dirección IPv4 es: <?php echo $ipv4; ?></p>
+    <p>Tu dirección IPv6 es: <?php echo $ipv6; ?></p>
+
+    <a href="<?php echo $enlaceWhatsApp; ?>" target="_blank">
+        <button>Enviar IP por WhatsApp</button>
+    </a>
+</body>
+</html>
